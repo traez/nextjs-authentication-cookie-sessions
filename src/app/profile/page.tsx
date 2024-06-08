@@ -27,7 +27,7 @@ const ProfilePage = async () => {
           required
           placeholder={session.username}
         />
-        <button>Update</button>
+        <button>Update Username</button>
       </form>
     </div>
   );
