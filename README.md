@@ -1,6 +1,6 @@
-# Basic Authentication in Nextjs using JWT Tokens
+# Basic Authentication in Nextjs with Cookie Sessions
 
-This is a solution to [Next.js App Router Authentication (Sessions, Cookies, JWTs) Project](https://www.youtube.com/watch?v=DJvM2lSPn6w). I'm practicing and developing my coding competency by building projects after projects.
+This is a solution to [Next.js Auth; This is the Easiest Way To Build Auth with Cookie Sessions Project](https://www.youtube.com/watch?v=p_FiVGxyksI). I'm practicing and developing my coding competency by building projects after projects.
 
 ## Table of contents
 
@@ -20,16 +20,16 @@ This is a solution to [Next.js App Router Authentication (Sessions, Cookies, JWT
 
 ### The Challenge/User Stories
 
-Learn the foundations of session based authentication through cookies in the Next.js App Router, and how community libraries like Auth.js build on top of this model. Auth is a deep topic, so let me know what else you want to see here!
+Next.js cookie session auth with iron-session and server actions. Cookie-based authentication and authorization in Next.js 14 app router.
 
 ### Screenshot
 
-![](screenshot-desktop.png)
+![](public/screenshot-desktop.png)
 
 ### Links
 
-- Solution URL: [https://github.com/traez/basic-authentication-jwttokens](https://github.com/traez/basic-authentication-jwttokens)
-- Live Site URL: [https://basic-authentication-jwttokens-trae-zeeofors-projects.vercel.app/](https://basic-authentication-jwttokens-trae-zeeofors-projects.vercel.app/)
+- Solution URL: [https://github.com/traez/nextjs-authentication-cookie-sessions](https://github.com/traez/nextjs-authentication-cookie-sessions)
+- Live Site URL: [https://nextjs-authentication-cookie-sessions-trae-zeeofors-projects.vercel.app/](https://nextjs-authentication-cookie-sessions-trae-zeeofors-projects.vercel.app/)
 
 ## My process
 
@@ -42,30 +42,23 @@ Learn the foundations of session based authentication through cookies in the Nex
 - [React](https://reactjs.org/) - JS library
 - [Next.js](https://nextjs.org/) - React framework**
 - Tailwind CSS**   
-- Typescript  
+- Typescript
 - Nodejs (with/without Expressjs)
 - MongoDB**  
 - GraphQL**    
 - Redux Toolkit**  
-- Jose    
+- iron-session   
 
 ### What I learned
  
-- The code base demonstrates **stateless authentication** in a web application using **JWT tokens and cookie-based authentication**.  
-- Other authentication approaches, which can be either stateful or stateless, include:
-  Social Media Login  
-  Passwordless Authentication (link to email)  
-  Multi-Factor Authentication (2FA code to a device)  
-  Token-Based Authentication with Different Storage (Local Storage or Session Storage)  
-- In stateless authentication, the server doesn't maintain any session information about the user. Instead, all authentication information is stored on the client-side, typically in a JWT (JSON Web Token). This approach makes the server treat every request as independent, requiring the client to send the JWT with every request for authorization. Stateless authentication with JWTs is generally preferred for its scalability, security, and ease of implementation.    
-- In stateful authentication, the server maintains session information about the user.   
-- `"jose": "^5.1.3"` refers to a JavaScript library named JOSE (JavaScript Object Signing and Encryption). It provides tools for working with JSON Web Tokens (JWTs), JSON Web Encryption (JWE), and JSON Web Signatures (JWS) according to relevant RFC specifications. 
-- `redirect("/")` is used to redirect a user to the root page ("/") of your application. It's commonly used in conjunction with authentication, such as after a successful login or logout. When called, it will redirect the user's browser to the specified path, which in this case is the homepage. 
-- `<pre>`: The Preformatted Text element represents preformatted text, which is presented exactly as written in the HTML file. The text is typically rendered using a non-proportional, or monospaced, font. Whitespace inside this element is displayed as written.  
-- `formData Parameter`: When the user submits a form, the browser collects the data entered in the form elements. The action function in the form specifies what to do with the submitted data. In this case, it's an asynchronous function that receives the formData parameter, which is a dictionary-like object containing key-value pairs. The keys are the names of the form elements (e.g., "email") and the values are the data entered by the user. This is essentially the FormData Web API at work, allowing you to construct key-value pairs representing form fields and their values. 
-- **Next.js server actions** involving the `"use server"` directive do not expose data to the client-side, reducing the risk of vulnerabilities. In contrast, regular client-side code would fetch data with `fetch` and `useEffect`, then store it in `useState`, etc. 
-- On `https://jwt.io/`, you can enter a cookie value/token to decode it and reveal the payload.
-- In `middleware.ts`, the middleware function is executed for every incoming request (initial page loads, page refreshes, form submissions, POST requests, API requests, GET, POST, PUT, DELETE, etc.). It calls the `updateSession` function, passing the `NextRequest` object as an argument. The updateSession function is likely responsible for updating the user's session, ensuring that the session is updated for every request. This middleware essentially extends the cookie expiry date/time using the updateSession function.  
+- `iron-session` is focused on managing encrypted sessions and storing them on the client side. While `Jose` is centered around creating and handling JWTs for secure data transmission and authentication.    
+- Recommended **Next.js Project Structure**: Under the src folder, create `app` (for routes), `components` (for components) and `utils` (for functions, database, etc.).  
+- **Public Environmental Variables**: To make a variable accessible on the client-side (browser), prefix it with `NEXT_PUBLIC_`. However, this exposes the value in the built JavaScript code, so avoid storing sensitive information like API keys here. When an environmental variable is used on the server, you can safely ignore this.    
+- **OpenSSL Command**: The command openssl rand -base64 32 generates a random sequence of bytes and encodes it in Base64. To achieve the same outcome in a Node.js terminal in VSCode, run: `node -e "console.log(require('crypto').randomBytes(32).toString('base64'))"`
+- **NODE_ENV Set to "production"**: When you deploy your application to a production environment, it is best practice to set the NODE_ENV environment variable to `"production"`. This triggers secure cookie behavior. During development, leave it as `"development"`. When you want to deploy, change it to `"production"` in Vercel/Render.   
+- **React Canaries**: A feature in React that allows you to test new versions of React in your application before they are released as stable. It provides a way to opt-in to upcoming versions of React, allowing you to try out new features and bug fixes before they are widely available. Canaries are essentially beta versions of React that are released more frequently than stable versions.
+- **useFormState**: A Hook that allows you to update state based on the result of a form action. Call useFormState at the top level of your component to create component state that is updated when a form action is invoked. You pass useFormState an existing form action function as well as an initial state, and it returns a new action that you use in your form, along with the latest form state. The latest form state is also passed to the function that you provided.   
+- **Server-Side Form State in Next.js**: When you submit a form and use the server action in a Next.js app, the data is stored on the server-side. Refreshing the client browser won't wipe away the data, eg username. The server retains the data until it's explicitly cleared or updated, allowing it to persist across page reloads and navigations. The "server's data memory" refers to the memory of the Node.js process running the Next.js application. Refreshing the client-side browser or clearing cookies still persists the data. It is only when you restart the development server or close the terminal that this data is lost, as it's not stored in any persistent storage like a database or file system.
 
 ### Continued development
 
